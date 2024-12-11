@@ -552,6 +552,140 @@ sub build_targets
 		
 	}
 	
+    # RGM_lAr, RGM_2_C_v2, and RGM_2_Sn_v2 implementation
+	# cad variation has two volume:
+	# target container
+	# and inside cell
+	if($thisVariation eq "RGM_lAr" || $thisVariation eq "RGM_2_C_v2" || $thisVariation eq "RGM_2_Sn_v2")
+	{
+		my $nplanes = 4;
+
+		my @oradius  =  (    50.3,   50.3,  21.1,  21.1 );
+		my @z_plane  =  (  -140.0,  265.0, 280.0, 280.0 );
+
+
+		if ($thisVariation eq "lH2e") {
+			@z_plane  =  (  -115.0,  365.0, 390.0, 925.0 );
+		}
+		
+
+		# vacuum target container
+		my %detector = init_det();
+		$detector{"name"}        = "target";
+		$detector{"mother"}      = "root";
+		$detector{"description"} = "Target Container";
+		$detector{"color"}       = "22ff22";
+		$detector{"type"}        = "Polycone";
+		my $dimen = "0.0*deg 360*deg $nplanes*counts";
+		for(my $i = 0; $i <$nplanes; $i++) {$dimen = $dimen ." 0.0*mm";}
+		for(my $i = 0; $i <$nplanes; $i++) {$dimen = $dimen ." $oradius[$i]*mm";}
+		for(my $i = 0; $i <$nplanes; $i++) {$dimen = $dimen ." $z_plane[$i]*mm";}
+		$detector{"dimensions"}  = $dimen;
+		$detector{"material"}    = "G4_Galactic";
+		$detector{"style"}       = 0;
+		print_det(\%configuration, \%detector);
+
+
+
+		$nplanes = 5;
+		my @oradiusT  =  (   2.5,  10.3,  7.3,  5.0,  2.5);
+		my @z_planeT  =  ( -24.2, -21.2, 22.5, 23.5, 24.5);
+
+		# actual target
+		%detector = init_det();
+		$detector{"name"}        = "lh2";
+		$detector{"mother"}      = "target";
+		$detector{"description"} = "Target Cell";
+		$detector{"color"}       = "aa0000";
+		$detector{"type"}        = "Polycone";
+		$dimen = "0.0*deg 360*deg $nplanes*counts";
+		for(my $i = 0; $i <$nplanes; $i++) {$dimen = $dimen ." 0.0*mm";}
+		for(my $i = 0; $i <$nplanes; $i++) {$dimen = $dimen ." $oradiusT[$i]*mm";}
+		for(my $i = 0; $i <$nplanes; $i++) {$dimen = $dimen ." $z_planeT[$i]*mm";}
+		$detector{"dimensions"}  = $dimen;
+		$detector{"material"}    = "G4_lH2";
+		if($thisVariation eq "lD2") {
+			$detector{"material"}    = "LD2";
+		}
+		if($thisVariation eq "lHe") {
+			$detector{"material"}    = "lHeTarget";
+		}
+		$detector{"style"}       = 1;
+		print_det(\%configuration, \%detector);
+
+
+		# upstream al window. zpos comes from engineering model, has the shift of 1273.27 mm + 30 due to the new engineering center
+	    my $eng_shift = 1303.27 ;
+		my $zpos = $eng_shift - 1328.27;
+		my $radius = 4.9;
+		my $thickness=0.015;
+		%detector = init_det();
+		$detector{"name"}        = "al_window_entrance";
+		$detector{"mother"}      = "target";
+		$detector{"description"} = "30 mm thick aluminum window upstream";
+		$detector{"color"}       = "aaaaff";
+		$detector{"type"}        = "Tube";
+		$detector{"dimensions"}  = "0*mm $radius*mm $thickness*mm 0*deg 360*deg";
+		$detector{"pos"}         = "0*mm 0*mm $zpos*mm";
+		$detector{"material"}    = "G4_Al";
+		$detector{"style"}       = "1";
+		print_det(\%configuration, \%detector);
+
+	    # downstream al window
+	    $zpos = $eng_shift - 1278.27;
+		$radius = 5;
+		$thickness=0.015;
+		%detector = init_det();
+		$detector{"name"}        = "al_window_exit";
+		$detector{"mother"}      = "target";
+		$detector{"description"} = "30 mm thick aluminum window downstream";
+		$detector{"color"}       = "aaaaff";
+		$detector{"type"}        = "Tube";
+		$detector{"dimensions"}  = "0*mm $radius*mm $thickness*mm 0*deg 360*deg";
+		$detector{"pos"}         = "0*mm 0*mm $zpos*mm";
+		$detector{"material"}    = "G4_Al";
+		$detector{"style"}       = "1";
+		print_det(\%configuration, \%detector);
+
+	    # cell barrier is 15 microns
+	    $zpos = $eng_shift - 1248.27;
+		$radius = 5;
+		$thickness=0.0075;
+		%detector = init_det();
+		$detector{"name"}        = "al_window_mli_barrier";
+		$detector{"mother"}      = "target";
+		$detector{"description"} = "15 mm thick aluminum mli barrier";
+		$detector{"color"}       = "bb99aa";
+		$detector{"type"}        = "Tube";
+		$detector{"dimensions"}  = "0*mm $radius*mm $thickness*mm 0*deg 360*deg";
+		$detector{"pos"}         = "0*mm 0*mm $zpos*mm";
+		$detector{"material"}    = "G4_Al";
+		$detector{"style"}       = "1";
+		print_det(\%configuration, \%detector);
+
+
+
+	    # scattering chambers al window, 75 microns
+	    # note: the eng. position is 1017.27 - here it is placed 8mm upstream to place it within the mother scattering chamber
+	    $zpos = $eng_shift - 1025.27;
+		$radius = 12;
+		$thickness=0.0375;
+		%detector = init_det();
+		$detector{"name"}        = "al_window_scexit";
+		$detector{"mother"}      = "target";
+		$detector{"description"} = "50 mm thick aluminum window downstream";
+		$detector{"color"}       = "aaaaff";
+		$detector{"type"}        = "Tube";
+		$detector{"dimensions"}  = "0*mm $radius*mm $thickness*mm 0*deg 360*deg";
+		$detector{"pos"}         = "0*mm 0*mm $zpos*mm";
+		$detector{"material"}    = "G4_Al";
+		$detector{"style"}       = "1";
+		print_det(\%configuration, \%detector);
+
+
+		
+	}
+	
 	# cad variation has two volume:
 	# target container
 	# and inside cell
