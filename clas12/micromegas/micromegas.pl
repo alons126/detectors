@@ -51,7 +51,7 @@ define_bank();
 
 
 # all the scripts must be run for every configuration
-my @allConfs = ("michel", "rgf_spring2020", "slim", "michel_9mmcopper");
+my @allConfs = ("michel", "rgf_spring2020", "slim",  "rgm_fall2021", "michel_9mmcopper");
 
 foreach my $conf ( @allConfs )
 {
@@ -95,7 +95,7 @@ foreach my $conf ( @allConfs )
 		# materials
 		materials();
 
-	} elsif( $configuration{"variation"} eq "slim") {
+	} elsif( $configuration{"variation"} eq "slim" || $configuration{"variation"} eq "rgm_fall2021") {
 
 		# loading pars according to variation
 		our %parameters    = get_parameters(%configuration);

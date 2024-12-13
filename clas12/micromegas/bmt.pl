@@ -191,7 +191,7 @@ sub define_bmt
  	print "BMT: DriftCuElectrode_Width = $DriftCuElectrode_Width \n";
  	print "BMT: DriftCuElectrode6C_Width = $DriftCuElectrode6C_Width \n";
 
-	if( $configuration{"variation"} eq "michel" || $configuration{"variation"} eq "slim" || $configuration{"variation"} eq "michel_9mmcopper") {
+	if( $configuration{"variation"} eq "michel" || $configuration{"variation"} eq "slim" || $configuration{"variation"} eq "rgm_fall2021" || $configuration{"variation"} eq "michel_9mmcopper") {
 		make_bmt();
 		#	make_sl(1);
 		#	make_sl(2);

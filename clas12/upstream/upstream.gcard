@@ -2,15 +2,24 @@
 
 	<option name="geometry" value="1400x1200"/>
 
-    	<detector name="beampipeUpstream/beampipeUpstream" factory="TEXT" variation="original"/>
-	<detector name="cndUpstream/cndUpstream" factory="TEXT" variation="original"/>
-	<detector name="mvtElectronics/mvtElectronics" factory="TEXT" variation="original"/>
-	<detector name="supportsUpstream/supportsUpstream" factory="TEXT" variation="original"/>
+    	<detector name="beampipeUpstream/beampipeUpstream" factory="TEXT" variation="main"/>
+	<detector name="cndUpstream/cndUpstream" factory="TEXT" variation="main"/>
+	<detector name="mvtElectronics/mvtElectronics" factory="TEXT" variation="main"/>
+	<detector name="supportsUpstream/supportsUpstream" factory="TEXT" variation="main"/>
 
-	<!--  Target and central detectors are all shifted upstream by 30 mm, beampipe shifted in (x,y) to match RGB target -->
+   
+    <detector name="../cnd/cnd" factory="TEXT" variation="original"/>
+    <detector name="../micromegas/micromegas" factory="TEXT" variation="slim"/>
+
+	<!-- target. Notice variation give the target type. Can be: lH2, lD2, ND3 -->
+	<detector name="../targets/cad/"   factory="CAD"/>
+	<detector name="../targets/target" factory="TEXT" variation="lH2"/>
+
+	<!--  Target and central detectors are all shifted upstream by 30 mm, beampipe shifted in (x,y) to match RGB target 
 	<detector name="beampipeUpstream">    <position x="0.12*cm"  y="0.11*cm"  z="-3.00*cm"  />
 	<detector name="cndUpstream">    <position x="0.0*cm"  y="0.0*cm"  z="-3.00*cm"  />
 	<detector name="mvtElectronics">    <position x="0.0*cm"  y="0.0*cm"  z="-3.00*cm"  />
 	<detector name="supportsUpstream">    <position x="0.0*cm"  y="0.0*cm"  z="-3.00*cm"  />
+    -->
 
 </gcard>
