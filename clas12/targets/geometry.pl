@@ -728,8 +728,8 @@ sub build_targets {
         # TODO: these are from RGM_2_C, RGM_2_Sn. Which one I should use?
         my @oradius = (50.2, 50.2, 21.0, 21.0);
         my @z_plane = (-115.0, 265.0, 290.0, 300.0);
-        # my @oradius = (50.3, 50.3, 21.1, 21.1);
-        # my @z_plane = (-140.0, 265.0, 280.0, 280.0);
+        # my @oradius = (50.3, 50.3, 21.1, 21.1); # original (lD2)
+        # my @z_plane = (-140.0, 265.0, 280.0, 280.0); # original (lD2)
 
 
         # vacuum target container (scattering chamber)
@@ -849,17 +849,12 @@ sub build_targets {
         # lAr cryocell
         # TODO: change cryocell length
         # TODO: change exit window radius
-        $nplanes = 5;
-        # my @oradiusT = (2.5, 10.3, 7.3, 5.0);
-        # my @z_planeT = (-24.2, -21.2, 22.5, 23.5);
-        # my @oradiusT = (2.5, 10.3, 7.3, 5.0, 7.5); # good1
-        # my @z_planeT = (-24.2, -21.2, 22.5, 23.5, -22.5); # good1
-        # my @oradiusT = (2.5, 10.3, 7.3, 5.0, 7.5); # good2
-        # my @z_planeT = (-24.2, -22.2, 22.5, 22.5, -22.5); # good2
-        # my @oradiusT = (2.5, 10.3, 7.3, 5.735, 7.5); # good3
-        # my @z_planeT = (-24.2, -22.2, -6.5, -6.5, -22.5); # good3
-        my @oradiusT = (2.5, 10.3, 7.3, 5.0, 2.5); # original
-        my @z_planeT = (-24.2, -21.2, 22.5, 23.5, 24.5); # original
+        $nplanes = 2;
+        # $nplanes = 5; # original
+        my @oradiusT = (3, 7.5, 7.3, 5.0, 2.5);
+        my @z_planeT = (-5.015, 0, 22.5, 23.5, 24.5);
+        # my @oradiusT = (2.5, 10.3, 7.3, 5.0, 2.5); # original
+        # my @z_planeT = (-24.2, -21.2, 22.5, 23.5, 24.5); # original
 
         # actual target
         %detector = init_det();
@@ -895,6 +890,7 @@ sub build_targets {
 
 
         # upstream al window. zpos comes from engineering model, has the shift of 1273.27 mm + 30 due to the new engineering center
+        # where is the value of 1273.27 mm comes from?
         # TODO: why are these values different than Bob's? This window should be the same!
         my $eng_shift = 1325.755; # changed offset to fit the target center as in BM2101-03-01-0100_-_PDF (3).pdf. For lD2, target center matches B00000-03-01-0100_NX---dwg1 (2).pdf.
         # my $eng_shift = 1303.27; # original
