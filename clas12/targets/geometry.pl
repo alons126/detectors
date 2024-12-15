@@ -415,7 +415,7 @@ sub build_targets {
     # cad variation has two volume:
     # target container
     # and inside cell
-    if ($thisVariation eq "RGM_lAr" || $thisVariation eq "RGM_2_C_v2" || $thisVariation eq "RGM_2_Sn_v2") {
+    if ($thisVariation eq "RGM_lAr" || $thisVariation eq "RGM_2_C_v2") {
         #Flag Shaft Geometry (cm/deg)
         my @flag_shaft = (0.2665, 0.3175, 8.145, 0, 360, 0, 0, 0); #Inner radius, outer radius, half length, initial angle, final angle, x angle, y angle, z angle
 
@@ -547,7 +547,6 @@ sub build_targets {
             $C_f_y = (2 * $C_flag_pole[2] + $flag_shaft[1] + $Sn_flag[1]) + $offset_y;
             # my $C_f_y = (2 * $C_flag_pole[2] + $flag_shaft[1] + $Sn_flag[1]) + $offset_y;
 
-        } elsif ($thisVariation eq "RGM_2_Sn_v2") {
             #Flag Pole Geometry (cm/deg)
             @Sn_flag_pole = (0.084, 0.1195, 1.0605, 0, 360, 90, 0, 0);  #Inner radius, outer radius, half length (2), initial angle, final angle, x angle, y angle, z angle for the Sn flag poles.
             # my @Sn_flag_pole = (0.084, 0.1195, 1.0605, 0, 360, 90, 0, 0);  #Inner radius, outer radius, half length (2), initial angle, final angle, x angle, y angle, z angle for the Sn flag poles.
@@ -733,7 +732,7 @@ sub build_targets {
         # my @z_plane = (-140.0, 265.0, 280.0, 280.0);
 
 
-        # vacuum target container
+        # vacuum target container (scattering chamber)
         my %detector = init_det();
         $detector{"name"} = "target";
         $detector{"mother"} = "root";
@@ -851,14 +850,22 @@ sub build_targets {
         # TODO: change cryocell length
         # TODO: change exit window radius
         $nplanes = 5;
-        my @oradiusT = (2.5, 10.3, 7.3, 5.0, 2.5);
-        my @z_planeT = (-24.2, -21.2, 22.5, 23.5, 24.5);
+        # my @oradiusT = (2.5, 10.3, 7.3, 5.0);
+        # my @z_planeT = (-24.2, -21.2, 22.5, 23.5);
+        # my @oradiusT = (2.5, 10.3, 7.3, 5.0, 7.5); # good1
+        # my @z_planeT = (-24.2, -21.2, 22.5, 23.5, -22.5); # good1
+        # my @oradiusT = (2.5, 10.3, 7.3, 5.0, 7.5); # good2
+        # my @z_planeT = (-24.2, -22.2, 22.5, 22.5, -22.5); # good2
+        my @oradiusT = (2.5, 10.3, 7.3, 5.735, 7.5); # good3
+        my @z_planeT = (-24.2, -22.2, -6.5, -6.5, -22.5); # good3
+        # my @oradiusT = (2.5, 10.3, 7.3, 5.0, 2.5); # original
+        # my @z_planeT = (-24.2, -21.2, 22.5, 23.5, 24.5); # original
 
         # actual target
         %detector = init_det();
         if($thisVariation eq "RGM_lAr") {
             $detector{"name"} = "lAr_target";
-        } elsif ($thisVariation eq "RGM_2_C_v2" || $thisVariation eq "RGM_2_Sn_v2") {
+        } elsif ($thisVariation eq "RGM_2_C_v2") {
             $detector{"name"} = "Empty_target";
         }
         # $detector{"name"} = "lh2";
@@ -873,7 +880,7 @@ sub build_targets {
         $detector{"dimensions"} = $dimen;
         if($thisVariation eq "RGM_lAr") {
             $detector{"material"} = "lAr target";
-        } elsif ($thisVariation eq "RGM_2_C_v2" || $thisVariation eq "RGM_2_Sn_v2") {
+        } elsif ($thisVariation eq "RGM_2_C_v2") {
             $detector{"material"} = "G4_Galactic";
         }
         # $detector{"material"} = "G4_lH2";
@@ -888,11 +895,14 @@ sub build_targets {
 
 
         # upstream al window. zpos comes from engineering model, has the shift of 1273.27 mm + 30 due to the new engineering center
-        # TODO: check thickness; radius; and location!
-        my $eng_shift = 1303.27;
-        my $zpos = $eng_shift - 1328.27;
-        my $radius = 4.9;
-        my $thickness = 0.015;
+        # TODO: why are these values different than Bos's? This window should be the same!
+        my $eng_shift = 1303.27; # TODO: keep this offset?
+        my $zpos = $eng_shift - 1330.77; # From BM2101-02-00-0000 (8).pdf
+        # my $zpos = $eng_shift - 1328.27;
+        my $radius = 3; # From Bod (Entrance window diameter is 6 mm)
+        # my $radius = 4.9;
+        my $thickness = 0.015; # From Bod (Entrance window thickness is 30 microns)
+        # my $thickness = 0.015;
         %detector = init_det();
         $detector{"name"} = "al_window_entrance";
         $detector{"mother"} = "target";
@@ -906,9 +916,12 @@ sub build_targets {
         print_det(\%configuration, \%detector);
 
         # downstream al window
-        $zpos = $eng_shift - 1278.27;
-        $radius = 5;
-        $thickness = 0.015;
+        $zpos = $eng_shift - 1325.77; # From BM2101-02-00-0000 (8).pdf
+        # $zpos = $eng_shift - 1278.27;
+        $radius = 7.5; # From Bod (Exit window diameter is 15 mm)
+        # $radius = 5;
+        $thickness = 0.015; # From Bod (Exit window thickness is 30 microns)
+        # $thickness = 0.015;
         %detector = init_det();
         $detector{"name"} = "al_window_exit";
         $detector{"mother"} = "target";
