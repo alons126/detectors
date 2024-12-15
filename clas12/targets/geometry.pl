@@ -856,10 +856,10 @@ sub build_targets {
         # my @z_planeT = (-24.2, -21.2, 22.5, 23.5, -22.5); # good1
         # my @oradiusT = (2.5, 10.3, 7.3, 5.0, 7.5); # good2
         # my @z_planeT = (-24.2, -22.2, 22.5, 22.5, -22.5); # good2
-        my @oradiusT = (2.5, 10.3, 7.3, 5.735, 7.5); # good3
-        my @z_planeT = (-24.2, -22.2, -6.5, -6.5, -22.5); # good3
-        # my @oradiusT = (2.5, 10.3, 7.3, 5.0, 2.5); # original
-        # my @z_planeT = (-24.2, -21.2, 22.5, 23.5, 24.5); # original
+        # my @oradiusT = (2.5, 10.3, 7.3, 5.735, 7.5); # good3
+        # my @z_planeT = (-24.2, -22.2, -6.5, -6.5, -22.5); # good3
+        my @oradiusT = (2.5, 10.3, 7.3, 5.0, 2.5); # original
+        my @z_planeT = (-24.2, -21.2, 22.5, 23.5, 24.5); # original
 
         # actual target
         %detector = init_det();
