@@ -498,7 +498,7 @@ sub build_targets {
             }
 
 
-            # TODO: change separation with larger foils?
+            # TODO: change separation with the larger foils?
             $separation = 0.127; #Distance the flags set the target above the end of the flag poles.
             # my $separation = 0.127; #Distance the flags set the target above the end of the flag poles.
 
@@ -779,8 +779,6 @@ sub build_targets {
         print_det(\%configuration, \%detector);
 
         # lAr cryocell
-        # TODO: change cryocell length
-        # TODO: change exit window radius
         $nplanes = 2;
         # $nplanes = 5; # original
         my @oradiusT = (3, 7.5, 7.3, 5.0, 2.5);
@@ -827,7 +825,7 @@ sub build_targets {
 
         # upstream al window. zpos comes from engineering model, has the shift of 1273.27 mm + 30 due to the new engineering center
         # where is the value of 1273.27 mm comes from?
-        # TODO: why are these values different than Bob's? This window should be the same!
+        # TODO: why are the original values here are different than Bob's?
         my $eng_shift = 1325.755; # changed offset to fit the target center as in BM2101-03-01-0100_-_PDF (3).pdf. For lD2, target center matches B00000-03-01-0100_NX---dwg1 (2).pdf.
         # my $eng_shift = 1303.27; # original
         my $zpos = $eng_shift - 1330.77; # From BM2101-02-00-0000 (8).pdf
