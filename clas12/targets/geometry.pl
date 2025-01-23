@@ -715,7 +715,8 @@ sub build_targets {
         # lAr cell
         $nplanes = 2;
         my @oradiusT = (3, 7.5);
-        my @z_planeT = (-4.97, 0);
+        my @z_planeT = (-27.47, -22.53);
+        # my @z_planeT = (-4.97, 0);
         # my @oradiusT = (3, 7.5, 7.3, 5.0, 2.5); # Review 1
         # my @z_planeT = (-5.015, 0, 22.5, 23.5, 24.5); # Review 1
         # my @oradiusT = (2.5, 10.3, 7.3, 5.0, 2.5); # original
@@ -752,15 +753,11 @@ sub build_targets {
 
         # upstream al window. zpos comes from engineering model, has the shift of 1273.27 mm + 30 due to the new engineering center
         # where is the value of 1273.27 mm comes from?
-        my $eng_shift = 1325.8; # changed offset to fit the target center as in BM2101-03-01-0100_-_PDF (3).pdf. For lD2, target center matches B00000-03-01-0100_NX---dwg1 (2).pdf.
-        # my $eng_shift = 1325.755; # changed offset to fit the target center as in BM2101-03-01-0100_-_PDF (3).pdf. For lD2, target center matches B00000-03-01-0100_NX---dwg1 (2).pdf.
-        # my $eng_shift = 1303.27; # original
-        # my $zpos = $eng_shift - 1330.77; # From BM2101-02-00-0000 (8).pdf
-        # # my $zpos = $eng_shift - 1328.27; # original; matches BM2101-02-00-0000 (8).pdf
+        # my $eng_shift = 1303.27 + 25 + 2.5;
+        my $eng_shift = 1303.27; # original
         my $radius = 3; # From Bob (Entrance window diameter is 6 mm)
         my $thickness = 0.015; # From Bob (Entrance window thickness is 30 microns)
-        my $zpos = $eng_shift - 1330.77 + 2*$thickness; # From BM2101-02-00-0000 (8).pdf
-        # my $zpos = $eng_shift - 1328.27; # original; matches BM2101-02-00-0000 (8).pdf
+        my $zpos = $eng_shift - 1330.77 + $thickness; # From BM2101-02-00-0000 (8).pdf
         %detector = init_det();
         $detector{"name"} = "al_window_entrance";
         $detector{"mother"} = "target";
@@ -778,12 +775,9 @@ sub build_targets {
 
 
         # downstream al window
-        # $zpos = $eng_shift - 1325.77; # From BM2101-02-00-0000 (8).pdf
-        # # $zpos = $eng_shift - 1278.27; # original
         $radius = 7.5; # From Bob (Exit window diameter is 15 mm)
         $thickness = 0.015; # From Bob (Exit window thickness is 30 microns)
-        $zpos = $eng_shift - 1325.77; # From BM2101-02-00-0000 (8).pdf
-        # $zpos = $eng_shift - 1325.77 + 2*$thickness; # From BM2101-02-00-0000 (8).pdf
+        $zpos = $eng_shift - 1325.77 - $thickness; # From BM2101-02-00-0000 (8).pdf
         %detector = init_det();
         $detector{"name"} = "al_window_exit";
         $detector{"mother"} = "target";
