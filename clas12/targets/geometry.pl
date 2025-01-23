@@ -774,9 +774,7 @@ sub build_targets {
         $zpos = $eng_shift - 1325.77; # From BM2101-02-00-0000 (8).pdf
         # $zpos = $eng_shift - 1278.27; # original
         $radius = 7.5; # From Bob (Exit window diameter is 15 mm)
-        # $radius = 5;
         $thickness = 0.015; # From Bob (Exit window thickness is 30 microns)
-        # $thickness = 0.015;
         %detector = init_det();
         $detector{"name"} = "al_window_exit";
         $detector{"mother"} = "target";
