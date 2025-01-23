@@ -13,7 +13,7 @@ sub materials
     if($thisVariation eq "RGM_lAr")
 	{
 		# lAr target
-		$mat{"name"}          = "lAr target";
+		$mat{"name"}          = "lAr_target";
 		$mat{"description"}   = "lAr target 1.396 g/cm3";
 		$mat{"density"}       = "1.396";  # 698.00/0.5=1396 mg/cm3
 		$mat{"ncomponents"}   = "1";

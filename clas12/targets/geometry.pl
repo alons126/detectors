@@ -419,47 +419,51 @@ sub build_targets {
         #Flag Shaft Geometry (cm/deg)
         my @flag_shaft = (0.2665, 0.3175, 8.145, 0, 360, 0, 0, 0); #Inner radius, outer radius, half length, initial angle, final angle, x angle, y angle, z angle
 
-        my @Sn_flag_pole;
-        my @C_flag_pole;
+        my (@Sn_flag_pole, @C_flag_pole, @Sn_flag, @C_flag, @Sn_target, @C_target, @flag_pole_relpos, @row);
+        my ($separation, $offset_x, $offset_y, $offset_z, $row_pole, $row_target, $row_flag, $sT_x2, $Sn_p_y);
+        my ($C_p_x, $C_p_y, $Sn_t_x, $Sn_t_y, $C_t_x, $C_t_y, $Sn_f_x, $Sn_f_y, $C_f_x, $C_f_y);
 
-        my @Sn_flag;
-        my @C_flag;
-
-        my @Sn_target;
-        my @C_target;
-
-        my $separation;
-
-        my @flag_pole_relpos;
-        my @row;
-
-        my $offset_x;
-        my $offset_y;
-        my $offset_z;
-
-        my $row_pole;
-
-        my $row_target;
-
-        my $row_flag;
-
-        my $sT_x2;
-        my $Sn_p_y;
-
-        my $C_p_x;
-        my $C_p_y;
-
-        my $Sn_t_x;
-        my $Sn_t_y;
-
-        my $C_t_x;
-        my $C_t_y;
-
-        my $Sn_f_x;
-        my $Sn_f_y;
-
-        my $C_f_x;
-        my $C_f_y;
+        # my @Sn_flag_pole;
+        # my @C_flag_pole;
+        #
+        # my @Sn_flag;
+        # my @C_flag;
+        #
+        # my @Sn_target;
+        # my @C_target;
+        #
+        # my $separation;
+        #
+        # my @flag_pole_relpos;
+        # my @row;
+        #
+        # my $offset_x;
+        # my $offset_y;
+        # my $offset_z;
+        #
+        # my $row_pole;
+        #
+        # my $row_target;
+        #
+        # my $row_flag;
+        #
+        # my $sT_x2;
+        # my $Sn_p_y;
+        #
+        # my $C_p_x;
+        # my $C_p_y;
+        #
+        # my $Sn_t_x;
+        # my $Sn_t_y;
+        #
+        # my $C_t_x;
+        # my $C_t_y;
+        #
+        # my $Sn_f_x;
+        # my $Sn_f_y;
+        #
+        # my $C_f_x;
+        # my $C_f_y;
 
         if ($thisVariation eq "RGM_2_C_v2_S" || $thisVariation eq "RGM_2_C_v2_L")
         {
@@ -487,8 +491,8 @@ sub build_targets {
                 # Half z = thickness -> same as analysis note (0.1 cm)
                 @Sn_target = (0.243912, 0.455, 0.1, 0, 0, -55); #Half x, y, z dimensions and x, y, z angles for the Sn target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
                 @C_target = (0.243912, 0.455, 0.1, 0, 0, 0);    #Half x, y, z dimensions and x, y, z angles for the C target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
-#                 @Sn_target = (0.1685, 0.405, 0.1, 0, 0, -55); #Half x, y, z dimensions and x, y, z angles for the Sn target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
-#                 @C_target = (0.1685, 0.405, 0.1, 0, 0, 0);    #Half x, y, z dimensions and x, y, z angles for the C target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
+                # @Sn_target = (0.1685, 0.405, 0.1, 0, 0, -55); #Half x, y, z dimensions and x, y, z angles for the Sn target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
+                # @C_target = (0.1685, 0.405, 0.1, 0, 0, 0);    #Half x, y, z dimensions and x, y, z angles for the C target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
             }
 
             # TODO: change separation with the larger foils?
@@ -628,8 +632,8 @@ sub build_targets {
         $detector{"style"} = 1;
         print_det(\%configuration, \%detector);
 
-        #C flag poles.
-        $detector{"name"} = "C_p1";
+        #C flag pole
+        $detector{"name"} = "Carbon_flag_pole";
         $detector{"mother"} = "target";
         $detector{"description"} = "RGM Solid Target Flag Pole C";
         $detector{"pos"} = "$C_p_x*cm $C_p_y*cm $row_pole*cm";
@@ -641,8 +645,8 @@ sub build_targets {
         $detector{"style"} = 1;
         print_det(\%configuration, \%detector);
 
-        #Tin flag poles.
-        $detector{"name"} = "Sn_p1";
+        #Tin flag pole
+        $detector{"name"} = "Tin_flag_pole";
         $detector{"mother"} = "target";
         $detector{"description"} = "RGM Solid Target Flag Pole Sn";
         $detector{"pos"} = "$sT_x2*cm $Sn_p_y*cm $row_pole*cm";
@@ -654,33 +658,7 @@ sub build_targets {
         $detector{"style"} = 1;
         print_det(\%configuration, \%detector);
 
-        #Carbon foil targets.
-        $detector{"name"} = "Carbon_t1"; # TODO: need to do something to make sure that this is NOT my target?
-        $detector{"mother"} = "target";
-        $detector{"description"} = "RGM Solid Target C";
-        $detector{"pos"} = "$C_t_x*cm $C_t_y*cm $row_target*cm";
-        $detector{"rotation"} = "$C_target[3]*deg $C_target[4]*deg $C_target[5]*deg";
-        $detector{"color"} = "FF9300";
-        $detector{"type"} = "Box";
-        $detector{"dimensions"} = "$C_target[0]*cm $C_target[1]*cm $C_target[2]*cm";
-        $detector{"material"} = "G4_C";
-        $detector{"style"} = 1;
-        print_det(\%configuration, \%detector);
-
-        #Tin foil targets.
-        $detector{"name"} = "Tin_t1"; # TODO: need to do something to make sure that this is NOT my target?
-        $detector{"mother"} = "target";
-        $detector{"description"} = "RGM Solid Target Sn";
-        $detector{"pos"} = "$Sn_t_x*cm $Sn_t_y*cm $row_target*cm";
-        $detector{"rotation"} = "$Sn_target[3]*deg $Sn_target[4]*deg $Sn_target[5]*deg";
-        $detector{"color"} = "9542FB";
-        $detector{"type"} = "Box";
-        $detector{"dimensions"} = "$Sn_target[0]*cm $Sn_target[1]*cm $Sn_target[2]*cm";
-        $detector{"material"} = "G4_Sn";
-        $detector{"style"} = 1;
-        print_det(\%configuration, \%detector);
-
-        #Carbon Flag.
+        #Carbon Flag
         $detector{"name"} = "C_flag";
         $detector{"mother"} = "target";
         $detector{"description"} = "RGM Solid Target Flag C";
@@ -693,7 +671,7 @@ sub build_targets {
         $detector{"style"} = 1;
         print_det(\%configuration, \%detector);
 
-        #Tin Flag.
+        #Tin Flag
         $detector{"name"} = "Sn_flag";
         $detector{"mother"} = "target";
         $detector{"description"} = "RGM Solid Target Flag Sn";
@@ -706,11 +684,37 @@ sub build_targets {
         $detector{"style"} = 1;
         print_det(\%configuration, \%detector);
 
-        # lAr cryocell
+        #Carbon foil target
+        $detector{"name"} = "Carbon_foil_target";
+        $detector{"mother"} = "target";
+        $detector{"description"} = "RGM Solid Target C";
+        $detector{"pos"} = "$C_t_x*cm $C_t_y*cm $row_target*cm";
+        $detector{"rotation"} = "$C_target[3]*deg $C_target[4]*deg $C_target[5]*deg";
+        $detector{"color"} = "FF9300";
+        $detector{"type"} = "Box";
+        $detector{"dimensions"} = "$C_target[0]*cm $C_target[1]*cm $C_target[2]*cm";
+        $detector{"material"} = "G4_C";
+        $detector{"style"} = 1;
+        print_det(\%configuration, \%detector);
+
+        #Tin foil target
+        $detector{"name"} = "Tin_foil_target";
+        $detector{"mother"} = "target";
+        $detector{"description"} = "RGM Solid Target Sn";
+        $detector{"pos"} = "$Sn_t_x*cm $Sn_t_y*cm $row_target*cm";
+        $detector{"rotation"} = "$Sn_target[3]*deg $Sn_target[4]*deg $Sn_target[5]*deg";
+        $detector{"color"} = "0096FF";
+        $detector{"type"} = "Box";
+        $detector{"dimensions"} = "$Sn_target[0]*cm $Sn_target[1]*cm $Sn_target[2]*cm";
+        $detector{"material"} = "G4_Sn";
+        $detector{"style"} = 1;
+        print_det(\%configuration, \%detector);
+
+        # lAr cell
         $nplanes = 2;
         # $nplanes = 5; # original
-        my @oradiusT = (3, 7.5, 7.3, 5.0, 2.5);
-        my @z_planeT = (-5.015, 0, 22.5, 23.5, 24.5);
+        my @oradiusT = (3, 7.5);
+        my @z_planeT = (-5.015, 0);
         # my @oradiusT = (3, 7.5, 7.3, 5.0, 2.5); # Review 1
         # my @z_planeT = (-5.015, 0, 22.5, 23.5, 24.5); # Review 1
         # my @oradiusT = (2.5, 10.3, 7.3, 5.0, 2.5); # original
@@ -719,12 +723,11 @@ sub build_targets {
         # actual target
         %detector = init_det();
         if($thisVariation eq "RGM_lAr") {
-            $detector{"name"} = "lAr_target";
+            $detector{"name"} = "lAr_target_cell";
         } elsif ($thisVariation eq "RGM_2_C_v2_S" || $thisVariation eq "RGM_2_C_v2_L") {
             $detector{"name"} = "Empty_target";
         }
         $detector{"mother"} = "target";
-        # $detector{"name"} = "lh2";
         $detector{"description"} = "Target Cell";
         if($thisVariation eq "RGM_lAr") {
             $detector{"color"} = "aa0000";
@@ -738,7 +741,7 @@ sub build_targets {
         for (my $i = 0; $i < $nplanes; $i++) {$dimen = $dimen . " $z_planeT[$i]*mm";}
         $detector{"dimensions"} = $dimen;
         if($thisVariation eq "RGM_lAr") {
-            $detector{"material"} = "lAr target";
+            $detector{"material"} = "lAr_target";
         } elsif ($thisVariation eq "RGM_2_C_v2_S" || $thisVariation eq "RGM_2_C_v2_L") {
             $detector{"material"} = "G4_Galactic";
         }
