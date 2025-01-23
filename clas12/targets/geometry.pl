@@ -659,6 +659,7 @@ sub build_targets {
         print_det(\%configuration, \%detector);
 
         #Carbon Flag
+        #C_flag = the piece that holds the target
         $detector{"name"} = "C_flag";
         $detector{"mother"} = "target";
         $detector{"description"} = "RGM Solid Target Flag C";
@@ -672,6 +673,7 @@ sub build_targets {
         print_det(\%configuration, \%detector);
 
         #Tin Flag
+        #Sn_flag = the piece that holds the target
         $detector{"name"} = "Sn_flag";
         $detector{"mother"} = "target";
         $detector{"description"} = "RGM Solid Target Flag Sn";
