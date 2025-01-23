@@ -473,18 +473,22 @@ sub build_targets {
                 @C_flag = (0.167, 0.1905, 0.0355, 0, 0, 0);    #Half x, y, z dimensions and x, y, z angles for the C flag that holds the target foils.
 
                 #Targets Geometry (cm)
+                # Half y = hight -> same as sketch (0.405 cm)
+                # Half z = thickness -> same as analysis note (0.1 cm)
                 @Sn_target = (0.1685, 0.405, 0.1, 0, 0, -55); #Half x, y, z dimensions and x, y, z angles for the Sn target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
                 @C_target = (0.1685, 0.405, 0.1, 0, 0, 0);    #Half x, y, z dimensions and x, y, z angles for the C target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
             } elsif ($thisVariation eq "RGM_2_C_v2_L") {
-                # TODO: change dimensions to the larger foils!
-                
                 #Flag Geometry (cm)
                 @Sn_flag = (0.167, 0.1905, 0.0355, 0, 0, -55); #Half x, y, z dimensions and x, y, z angles for the Sn flag that holds the target foils.
                 @C_flag = (0.167, 0.1905, 0.0355, 0, 0, 0);    #Half x, y, z dimensions and x, y, z angles for the C flag that holds the target foils.
 
                 #Targets Geometry (cm)
-                @Sn_target = (0.1685, 0.405, 0.1, 0, 0, -55); #Half x, y, z dimensions and x, y, z angles for the Sn target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
-                @C_target = (0.1685, 0.405, 0.1, 0, 0, 0);    #Half x, y, z dimensions and x, y, z angles for the C target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
+                # Half y = hight -> same as sketch (0.455 cm)
+                # Half z = thickness -> same as analysis note (0.1 cm)
+                @Sn_target = (0.243912, 0.455, 0.1, 0, 0, -55); #Half x, y, z dimensions and x, y, z angles for the Sn target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
+                @C_target = (0.243912, 0.455, 0.1, 0, 0, 0);    #Half x, y, z dimensions and x, y, z angles for the C target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
+#                 @Sn_target = (0.1685, 0.405, 0.1, 0, 0, -55); #Half x, y, z dimensions and x, y, z angles for the Sn target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
+#                 @C_target = (0.1685, 0.405, 0.1, 0, 0, 0);    #Half x, y, z dimensions and x, y, z angles for the C target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
             }
 
             # TODO: change separation with the larger foils?
@@ -637,7 +641,7 @@ sub build_targets {
         $detector{"style"} = 1;
         print_det(\%configuration, \%detector);
 
-        #Sn flag poles.
+        #Tin flag poles.
         $detector{"name"} = "Sn_p1";
         $detector{"mother"} = "target";
         $detector{"description"} = "RGM Solid Target Flag Pole Sn";
@@ -656,7 +660,7 @@ sub build_targets {
         $detector{"description"} = "RGM Solid Target C";
         $detector{"pos"} = "$C_t_x*cm $C_t_y*cm $row_target*cm";
         $detector{"rotation"} = "$C_target[3]*deg $C_target[4]*deg $C_target[5]*deg";
-        $detector{"color"} = "000099";
+        $detector{"color"} = "FF9300";
         $detector{"type"} = "Box";
         $detector{"dimensions"} = "$C_target[0]*cm $C_target[1]*cm $C_target[2]*cm";
         $detector{"material"} = "G4_C";
@@ -669,7 +673,7 @@ sub build_targets {
         $detector{"description"} = "RGM Solid Target Sn";
         $detector{"pos"} = "$Sn_t_x*cm $Sn_t_y*cm $row_target*cm";
         $detector{"rotation"} = "$Sn_target[3]*deg $Sn_target[4]*deg $Sn_target[5]*deg";
-        $detector{"color"} = "444444";
+        $detector{"color"} = "9542FB";
         $detector{"type"} = "Box";
         $detector{"dimensions"} = "$Sn_target[0]*cm $Sn_target[1]*cm $Sn_target[2]*cm";
         $detector{"material"} = "G4_Sn";
@@ -707,6 +711,8 @@ sub build_targets {
         # $nplanes = 5; # original
         my @oradiusT = (3, 7.5, 7.3, 5.0, 2.5);
         my @z_planeT = (-5.015, 0, 22.5, 23.5, 24.5);
+        # my @oradiusT = (3, 7.5, 7.3, 5.0, 2.5); # Review 1
+        # my @z_planeT = (-5.015, 0, 22.5, 23.5, 24.5); # Review 1
         # my @oradiusT = (2.5, 10.3, 7.3, 5.0, 2.5); # original
         # my @z_planeT = (-24.2, -21.2, 22.5, 23.5, 24.5); # original
 
@@ -815,7 +821,6 @@ sub build_targets {
         $detector{"material"} = "G4_Al";
         $detector{"style"} = "1";
         print_det(\%configuration, \%detector);
-
     }
 
     # cad variation has two volume:

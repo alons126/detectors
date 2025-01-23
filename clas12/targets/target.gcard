@@ -13,14 +13,14 @@
 	-->
 
 	<!-- other variations include: lH2, lD2, ND3, "elaborate"-->
-	<detector name="target" factory="TEXT" variation="RGM_lAr"/>
-	<detector name="cad_rgm/" factory="CAD"/>
+<!--	<detector name="target" factory="TEXT" variation="RGM_lAr"/>-->
+<!--	<detector name="cad_rgm/" factory="CAD"/>-->
 
 	<!-- <detector name="target" factory="TEXT" variation="RGM_2_C_v2_S"/>
 	<detector name="cad_rgm/" factory="CAD"/> -->
 
-	<!-- <detector name="target" factory="TEXT" variation="RGM_2_C_v2_L"/>
-	<detector name="cad_rgm/" factory="CAD"/> -->
+	<detector name="target" factory="TEXT" variation="RGM_2_C_v2_L"/>
+	<detector name="cad_rgm/" factory="CAD"/>
 
     <!-- <detector name="target" factory="TEXT" variation="RGM_8_C_L"/>
 	<detector name="cad_rgm/" factory="CAD"/> -->
