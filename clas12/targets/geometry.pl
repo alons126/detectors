@@ -752,7 +752,8 @@ sub build_targets {
 
         # upstream al window. zpos comes from engineering model, has the shift of 1273.27 mm + 30 due to the new engineering center
         # where is the value of 1273.27 mm comes from?
-        my $eng_shift = 1325.755; # changed offset to fit the target center as in BM2101-03-01-0100_-_PDF (3).pdf. For lD2, target center matches B00000-03-01-0100_NX---dwg1 (2).pdf.
+        my $eng_shift = 1325.8; # changed offset to fit the target center as in BM2101-03-01-0100_-_PDF (3).pdf. For lD2, target center matches B00000-03-01-0100_NX---dwg1 (2).pdf.
+        # my $eng_shift = 1325.755; # changed offset to fit the target center as in BM2101-03-01-0100_-_PDF (3).pdf. For lD2, target center matches B00000-03-01-0100_NX---dwg1 (2).pdf.
         # my $eng_shift = 1303.27; # original
         # my $zpos = $eng_shift - 1330.77; # From BM2101-02-00-0000 (8).pdf
         # # my $zpos = $eng_shift - 1328.27; # original; matches BM2101-02-00-0000 (8).pdf
@@ -772,12 +773,17 @@ sub build_targets {
         $detector{"style"} = "1";
         print_det(\%configuration, \%detector);
 
+
+        print("\n\nz pos al_window_entrance:\t$zpos\n\n");
+
+
         # downstream al window
         # $zpos = $eng_shift - 1325.77; # From BM2101-02-00-0000 (8).pdf
         # # $zpos = $eng_shift - 1278.27; # original
         $radius = 7.5; # From Bob (Exit window diameter is 15 mm)
         $thickness = 0.015; # From Bob (Exit window thickness is 30 microns)
-        $zpos = $eng_shift - 1325.77 + 2*$thickness; # From BM2101-02-00-0000 (8).pdf
+        $zpos = $eng_shift - 1325.77; # From BM2101-02-00-0000 (8).pdf
+        # $zpos = $eng_shift - 1325.77 + 2*$thickness; # From BM2101-02-00-0000 (8).pdf
         %detector = init_det();
         $detector{"name"} = "al_window_exit";
         $detector{"mother"} = "target";
@@ -789,6 +795,10 @@ sub build_targets {
         $detector{"material"} = "G4_Al";
         $detector{"style"} = "1";
         print_det(\%configuration, \%detector);
+
+
+        print("\n\nz pos al_window_exit:\t$zpos\n\n");
+
 
         # # cell barrier is 15 microns
         # $zpos = $eng_shift - 1248.27;
