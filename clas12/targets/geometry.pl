@@ -699,6 +699,11 @@ sub build_targets {
         $detector{"style"} = 1;
         print_det(\%configuration, \%detector);
 
+
+        print("\n\nrow_target:\t\t\t\t $row_target [cm]\n");
+
+
+
         #Tin foil target
         $detector{"name"} = "Tin_foil_target";
         $detector{"mother"} = "target";
@@ -753,7 +758,7 @@ sub build_targets {
 
         # upstream al window. zpos comes from engineering model, has the shift of 1273.27 mm + 30 due to the new engineering center
         # where is the value of 1273.27 mm comes from?
-        # my $eng_shift = 1303.27 + 25 + 2.5;
+        # my $eng_shift = 1303.27 - 30;
         my $eng_shift = 1303.27; # original
         my $radius = 3; # From Bob (Entrance window diameter is 6 mm)
         my $thickness = 0.015; # From Bob (Entrance window thickness is 30 microns)
@@ -771,7 +776,9 @@ sub build_targets {
         print_det(\%configuration, \%detector);
 
 
-        print("\n\nz pos al_window_entrance:\t$zpos\n\n");
+        # print("\n\nz pos al_window_entrance:\t$zpos [mm]\n");
+        print("\n\nz pos al_window_entrance:\t\t" . ($zpos/10) . " [cm]\n");
+        print("z pos al_window_entrance-thickness:\t" . (($zpos-$thickness)/10) . " [cm]\n");
 
 
         # downstream al window
@@ -791,7 +798,8 @@ sub build_targets {
         print_det(\%configuration, \%detector);
 
 
-        print("\n\nz pos al_window_exit:\t$zpos\n\n");
+        print("z pos al_window_exit:\t\t\t" . ($zpos/10) . " [cm]\n");
+        print("z pos al_window_exit+thickness:\t\t" . (($zpos+$thickness)/10) . " [cm]\n\n");
 
 
         # # cell barrier is 15 microns
