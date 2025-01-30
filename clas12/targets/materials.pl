@@ -10,6 +10,17 @@ sub materials
 	my $thisVariation = $configuration{"variation"} ;
 	
 	my %mat = init_mat();
+    if($thisVariation eq "RGM_lAr")
+	{
+		# lAr target
+		$mat{"name"}          = "lAr_target";
+		$mat{"description"}   = "lAr target 1.396 g/cm3";
+		$mat{"density"}       = "1.396";  # 698.00/0.5=1396 mg/cm3
+		$mat{"ncomponents"}   = "1";
+		$mat{"components"}    = "G4_Ar 1";
+		print_mat(\%configuration, \%mat);
+	}
+
 	if($thisVariation ne "PolTarg")
 	{
 		# rohacell
