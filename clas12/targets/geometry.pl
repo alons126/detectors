@@ -431,48 +431,6 @@ sub build_targets
         my ($separation, $offset_x, $offset_y, $offset_z, $row_pole, $row_target, $row_flag, $sT_x2, $Sn_p_y);
         my ($C_p_x, $C_p_y, $Sn_t_x, $Sn_t_y, $C_t_x, $C_t_y, $Sn_f_x, $Sn_f_y, $C_f_x, $C_f_y);
 
-        # my @Sn_flag_pole;
-        # my @C_flag_pole;
-        #
-        # my @Sn_flag;
-        # my @C_flag;
-        #
-        # my @Sn_target;
-        # my @C_target;
-        #
-        # my $separation;
-        #
-        # my @flag_pole_relpos;
-        # my @row;
-        #
-        # my $offset_x;
-        # my $offset_y;
-        # my $offset_z;
-        #
-        # my $row_pole;
-        #
-        # my $row_target;
-        #
-        # my $row_flag;
-        #
-        # my $sT_x2;
-        # my $Sn_p_y;
-        #
-        # my $C_p_x;
-        # my $C_p_y;
-        #
-        # my $Sn_t_x;
-        # my $Sn_t_y;
-        #
-        # my $C_t_x;
-        # my $C_t_y;
-        #
-        # my $Sn_f_x;
-        # my $Sn_f_y;
-        #
-        # my $C_f_x;
-        # my $C_f_y;
-
         if ($thisVariation eq "RGM_2_C_v2_S" || $thisVariation eq "RGM_2_C_v2_L")
         {
             #Flag Pole Geometry (cm/deg)
@@ -481,6 +439,9 @@ sub build_targets
 
             if ($thisVariation eq "RGM_2_C_v2_S") {
                 #Flag Geometry (cm)
+                # Half x = width -> same as sketch (0.334/2 cm)
+                # Half y = hight -> same as sketch ((0.127+0.254)/2=0.381/2 cm)
+                # Half z = thickness -> same as sketch (0.071/2 cm)
                 @Sn_flag = (0.167, 0.1905, 0.0355, 0, 0, -55); #Half x, y, z dimensions and x, y, z angles for the Sn flag that holds the target foils.
                 @C_flag = (0.167, 0.1905, 0.0355, 0, 0, 0);    #Half x, y, z dimensions and x, y, z angles for the C flag that holds the target foils.
 
@@ -491,6 +452,9 @@ sub build_targets
                 @C_target = (0.1685, 0.405, 0.1, 0, 0, 0);    #Half x, y, z dimensions and x, y, z angles for the C target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
             } elsif ($thisVariation eq "RGM_2_C_v2_L") {
                 #Flag Geometry (cm)
+                # Half x = width -> same as sketch (0.334/2 cm)
+                # Half y = hight -> same as sketch ((0.127+0.254)/2=0.381/2 cm)
+                # Half z = thickness -> same as sketch (0.071/2 cm)
                 @Sn_flag = (0.167, 0.1905, 0.0355, 0, 0, -55); #Half x, y, z dimensions and x, y, z angles for the Sn flag that holds the target foils.
                 @C_flag = (0.167, 0.1905, 0.0355, 0, 0, 0);    #Half x, y, z dimensions and x, y, z angles for the C flag that holds the target foils.
 
@@ -499,8 +463,6 @@ sub build_targets
                 # Half z = thickness -> same as analysis note (0.1 cm)
                 @Sn_target = (0.243912, 0.455, 0.1, 0, 0, -55); #Half x, y, z dimensions and x, y, z angles for the Sn target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
                 @C_target = (0.243912, 0.455, 0.1, 0, 0, 0);    #Half x, y, z dimensions and x, y, z angles for the C target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
-                # @Sn_target = (0.1685, 0.405, 0.1, 0, 0, -55); #Half x, y, z dimensions and x, y, z angles for the Sn target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
-                # @C_target = (0.1685, 0.405, 0.1, 0, 0, 0);    #Half x, y, z dimensions and x, y, z angles for the C target foils. I did a lot of geometry to try and keep the thickness & over all volume the same as in the CAD file.
             }
 
             # TODO: change separation with the larger foils?
@@ -668,7 +630,7 @@ sub build_targets
 
         #Carbon Flag
         #C_flag = the piece that holds the target
-        $detector{"name"} = "C_flag";
+        $detector{"name"} = "Carbon_flag";
         $detector{"mother"} = "target";
         $detector{"description"} = "RGM Solid Target Flag C";
         $detector{"pos"} = "$C_f_x*cm $C_f_y*cm $row_flag*cm";
@@ -682,7 +644,7 @@ sub build_targets
 
         #Tin Flag
         #Sn_flag = the piece that holds the target
-        $detector{"name"} = "Sn_flag";
+        $detector{"name"} = "Tin_flag";
         $detector{"mother"} = "target";
         $detector{"description"} = "RGM Solid Target Flag Sn";
         $detector{"pos"} = "$Sn_f_x*cm $Sn_f_y*cm $row_flag*cm";
@@ -707,10 +669,8 @@ sub build_targets
         $detector{"style"} = 1;
         print_det(\%configuration, \%detector);
 
-
-        print("\n\nrow_target:\t\t\t\t $row_target [cm]\n");
-
-
+        # TODO: remove lines
+        # print("\n\nrow_target:\t\t\t\t $row_target [cm]\n");
 
         #Tin foil target
         $detector{"name"} = "Tin_foil_target";
@@ -783,11 +743,10 @@ sub build_targets
         $detector{"style"} = "1";
         print_det(\%configuration, \%detector);
 
-
-        # print("\n\nz pos al_window_entrance:\t$zpos [mm]\n");
-        print("\n\nz pos al_window_entrance:\t\t" . ($zpos/10) . " [cm]\n");
-        print("z pos al_window_entrance-thickness:\t" . (($zpos-$thickness)/10) . " [cm]\n");
-
+        # TODO: remove lines
+        # # print("\n\nz pos al_window_entrance:\t$zpos [mm]\n");
+        # print("\n\nz pos al_window_entrance:\t\t" . ($zpos/10) . " [cm]\n");
+        # print("z pos al_window_entrance-thickness:\t" . (($zpos-$thickness)/10) . " [cm]\n");
 
         # downstream al window
         $radius = 7.5; # From Bob (Exit window diameter is 15 mm)
@@ -805,10 +764,9 @@ sub build_targets
         $detector{"style"} = "1";
         print_det(\%configuration, \%detector);
 
-
-        print("z pos al_window_exit:\t\t\t" . ($zpos/10) . " [cm]\n");
-        print("z pos al_window_exit+thickness:\t\t" . (($zpos+$thickness)/10) . " [cm]\n\n");
-
+        # TODO: remove lines
+        # print("z pos al_window_exit:\t\t\t" . ($zpos/10) . " [cm]\n");
+        # print("z pos al_window_exit+thickness:\t\t" . (($zpos+$thickness)/10) . " [cm]\n\n");
 
         # # cell barrier is 15 microns
         # $zpos = $eng_shift - 1248.27;

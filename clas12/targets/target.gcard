@@ -15,7 +15,8 @@
 
 	<!-- other variations include: lH2, lD2, ND3, "elaborate"-->
 	<detector name="target" factory="TEXT" variation="RGM_lAr"/>
-	<detector name="cadrgm/" factory="CAD"/>
+	<detector name="cad_rgm_lAr/" factory="CAD"/>
+	<!-- <detector name="cadrgm/" factory="CAD"/> -->
 	<!-- <detector name="cad_rgm/" factory="CAD"/> -->
 
 	<!-- <detector name="target" factory="TEXT" variation="RGM_2_C_v2_S"/>
